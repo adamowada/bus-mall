@@ -1,0 +1,91 @@
+/* Whole Doc */
+
+body {
+  width: 80%;
+  margin: auto;
+}
+
+main {
+  margin: auto;
+  border: green 3px solid;
+}
+
+
+/* Header Section */
+
+.logo {
+  display: inline;
+  vertical-align: bottom;
+}
+
+.nav-text {
+  display: inline;
+  font-size: 3em;
+  font-weight: bold;
+  align-items: center;
+  vertical-align: bottom;
+  margin-left: 100px;
+}
+
+.main-nav{
+  background-color: lightblue;
+  margin-bottom: 50px;
+}
+
+/* Results Side Bar */
+
+.analytics-panel {
+  border: 3px pink solid;
+  width: 300px;
+  height: 600px;
+  display: inline-block;
+}
+
+/* Images and Text Container */
+.images-text {
+  display: inline-grid;
+  border: 2px pink solid;
+  vertical-align: top;
+  height: 600px;
+  width: auto;
+}
+
+
+
+
+/* Three images displayed on screen */
+
+.threeImages {
+  display: inline;
+  margin: auto;
+  padding: 20px;
+}
+
+.threeImages img {
+  padding: 5px;
+  margin-bottom: 40px;
+}
+
+/* Text Under Image Section */
+.main-text {
+  display: inline-block;
+  border: pink solid 3px;
+  width: 900px;
+  margin: auto;
+}
+
+
+
+
+
+
+/* Footer Section */
+
+.footer-text {
+  font-size: 3.5em;
+  font-weight: bold;
+  font-family: sans-serif;
+  text-align: center;
+  padding-top: 50px;
+
+}
