@@ -1,2 +1,4 @@
-# bus-mall
-Class 11 Lab - Bus Mall
+# lab6
+Lab 11 Bus Mall
+- by Adam Owada
+
