@@ -64,6 +64,8 @@ main {
 .threeImages img {
   padding: 5px;
   margin-bottom: 40px;
+  height: 300px;
+  width: 300px;
 }
 
 /* Text Under Image Section */
