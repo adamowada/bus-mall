@@ -1,21 +1,21 @@
 'use-strict';
 
-//DOM elements
+// DOM elements
 var imageOne = document.getElementById('image1');
 var imageTwo = document.getElementById('image2');
 var imageThree = document.getElementById('image3');
 var sectionEl = document.getElementById('threeImages');
 var resultsEl = document.getElementById('results-items');
 
-//Click Counter & Memory
+// Click Counter & Memory
 var clickCount = 0;
-var oldMem = [null, null, null];
 var currentMem = [null, null, null];
+var stagingMem = [null, null, null]; // trial random image ids go here to be tested against currentMem
 
-//Image Array
-var imageList = [];
+// Image Array
+var imageList = [];var testMem = [];
 
-//New Image Constructor
+// New Image Constructor
 function NewImage(src, alt, title) {
   this.src = src;
   this.alt = alt;
@@ -25,7 +25,7 @@ function NewImage(src, alt, title) {
   imageList.push(this);
 }
 
-//Create New Image Objects Here
+// Create New Image Objects Here
 new NewImage('./images/bag.jpg', 'cool bag', 'bag');
 new NewImage('./images/banana.jpg', 'cool banana', 'banana');
 new NewImage('./images/bathroom.jpg', 'cool bathroom', 'bathroom');
@@ -54,41 +54,52 @@ function random() {
 }
 
 function memory() {
-  currentMem.pop();
-  currentMem.pop();
-  currentMem.pop();
-  currentMem.push(random(), random(), random());
+  stagingMem.pop(); // removes the 3 current elements in stagingMem
+  stagingMem.pop();
+  stagingMem.pop();
+  stagingMem.push(random(), random(), random()); // adds 3 random ids to stagingMem
 }
 
-//Render Random Image to DOM that satisfies conditions
-function imageGenerator() {
-  // var pass = false;
-  // do {
-  //   memory();
-  //   for (var i = 0; i < oldMem.length; i++) {
-  //     for (var j = 0; j < currentMem.length; j++) {
-  //       if (oldMem[i] === currentMem[j]) {
-  //         pass = false;
-  //       }
-  //     }
-  //   }
-  // } while (pass === false);
-
-  // it's broken : (
-
-  memory();
-  while (currentMem[0] === currentMem[1] || currentMem[0] === currentMem[2] || currentMem[1] === currentMem[2]){
-    memory();
+function checkIfUnique() {
+  if (stagingMem[0] !== stagingMem[1] && stagingMem[0] !== stagingMem[2] && stagingMem[1] !== stagingMem[2]) {
+    return true;
   }
+  return false;
+}
 
-  var pic1 = currentMem[0];
-  var pic2 = currentMem[1];
-  var pic3 = currentMem[2];
+function checkIfNew() {
+  for (var i = 0; i < currentMem.length; i++) {
+    for (var j = 0; j < stagingMem.length; j++) {
+      if (currentMem[i] === stagingMem[j]) {
+        return false;
+      }
+    }
+  }
+  return true;
+}
 
-  imageOne.src = imageList[pic1].src;
-  imageOne.alt = imageList[pic1].alt;
-  imageOne.title = imageList[pic1].title;
-  imageList[pic1].viewed++;
+// Render Random Image to DOM that satisfies randomness conditions
+function imageGenerator() {
+  // I want to generate 3 unique image ids and 3 different image ids
+
+  // Memory init funciton. stages 3 random image ids
+  memory();
+
+  // Generates new image ids until both new and unique
+  do {
+    memory();
+  } while (checkIfNew() === false || checkIfUnique() === false);
+
+  //currentMem values are assigned to pic variables
+  var pic1 = stagingMem[0];
+  var pic2 = stagingMem[1];
+  var pic3 = stagingMem[2];
+
+  //DOM manip
+  imageOne.src = imageList[pic1].src; // dynamically assign img src to DOM
+  imageOne.alt = imageList[pic1].alt; // dynamically assign img alt to DOM
+  imageOne.title = imageList[pic1].title; // dynamically assign img title to DOM
+  imageList[pic1].viewed++; // increments viewed value by 1
 
   imageTwo.src = imageList[pic2].src;
   imageTwo.alt = imageList[pic2].alt;
@@ -100,11 +111,13 @@ function imageGenerator() {
   imageThree.title = imageList[pic3].title;
   imageList[pic3].viewed++;
 
-  //Remomves Old Memory, Adds New Pics to Memory
-  oldMem.pop();
-  oldMem.pop();
-  oldMem.pop();
-  oldMem.push(pic1, pic2, pic3);
+  // Moves stagingMem to currentMem
+  currentMem.pop(); // removes all 3 elements in currentMem
+  currentMem.pop();
+  currentMem.pop();
+  for (var i = 0; i < stagingMem.length; i++) {
+    currentMem.push(stagingMem[i]); // pushes each element of stagingMem (which has been rendered) to currentMem
+  }
 }
 
 
