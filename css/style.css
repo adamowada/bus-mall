@@ -92,6 +92,10 @@ main {
   margin: auto;
 }
 
+.under-text {
+  font-size: 24px;
+}
+
 /* Footer Section */
 
 .footer-text {
