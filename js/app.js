@@ -86,9 +86,9 @@ function imageGenerator() {
   memory();
 
   // Generates new image ids until both new and unique
-  do {
+  while (checkIfNew() === false || checkIfUnique() === false) {
     memory();
-  } while (checkIfNew() === false || checkIfUnique() === false);
+  }
 
   //currentMem values are assigned to pic variables
   var pic1 = stagingMem[0];
