@@ -5,6 +5,10 @@ var imageOne = document.getElementById('image1');
 var imageTwo = document.getElementById('image2');
 var imageThree = document.getElementById('image3');
 var sectionEl = document.getElementById('threeImages');
+var resultsEl = document.getElementById('results-items');
+
+//Click Counter
+var clickCount = 0;
 
 //Image Array
 var imageList = [];
@@ -73,15 +77,31 @@ imageGenerator();
 
 //On Click - Event Handler
 sectionEl.addEventListener('click', handleClick);
-
 function handleClick(event) {
-//  event.preventDefault();
-  var clickedImage = event.target.title; //.value
+  var clickedImage = event.target.title;
   for (var i = 0; i < imageList.length; i++){
     if (clickedImage === imageList[i].title){
       imageList[i].clicked++;
     }
   }
   imageGenerator();
+  clickCount++;
+  if (clickCount === 25) {
+    resultsGenerator();
+  }
 }
 
+//Results Display after 25 Clicks
+function resultsGenerator(){
+  for (var i = 0; i < imageList.length; i++) {
+    var liEl = document.createElement('li');
+    var percent = 0;
+    if (isNaN(Math.round((imageList[i].clicked / imageList[i].viewed) * 100))) {
+      percent = 0;
+    } else {
+      percent = Math.round((imageList[i].clicked / imageList[i].viewed) * 100);
+    }
+    liEl.textContent = `${imageList[i].title} was viewed ${imageList[i].viewed} times, clicked ${imageList[i].clicked} times, click rate was ${percent}%.`;
+    resultsEl.appendChild(liEl);
+  }
+}

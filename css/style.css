@@ -1,13 +1,13 @@
 /* Whole Doc */
 
 body {
-  width: 80%;
+  width: 90%;
   margin: auto;
 }
 
 main {
   margin: auto;
-  border: green 3px solid;
+  /* border: green 3px solid; */
 }
 
 
@@ -19,12 +19,12 @@ main {
 }
 
 .nav-text {
-  display: inline;
+  display: inline-block;
   font-size: 3em;
   font-weight: bold;
-  align-items: center;
-  vertical-align: bottom;
-  margin-left: 100px;
+  margin-left: 350px;
+  margin-bottom: 10px;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
 .main-nav{
@@ -35,20 +35,36 @@ main {
 /* Results Side Bar */
 
 .analytics-panel {
-  border: 3px pink solid;
-  width: 300px;
+  border: 4px blue solid;
+  width: 500px;
   height: 600px;
   display: inline-block;
+  padding: 5px;
+  background-color: lightgray;
 }
+
+.analytics-panel li {
+  line-height: 1.5;
+  font-size: 18px;
+}
+
+.results {
+  font-size: 2em;
+  font-weight: 600;
+}
+
 
 /* Images and Text Container */
 .images-text {
   display: inline-grid;
-  border: 2px pink solid;
   vertical-align: top;
   height: 600px;
-  width: auto;
+  width: 1000px;
+  text-align: center;
+  margin-left: 50px;
+  padding-top: 30px;
 }
+
 
 
 
@@ -63,7 +79,7 @@ main {
 
 .threeImages img {
   padding: 5px;
-  margin-bottom: 40px;
+  margin: 40 0;
   height: 300px;
   width: 300px;
 }
@@ -71,22 +87,17 @@ main {
 /* Text Under Image Section */
 .main-text {
   display: inline-block;
-  border: pink solid 3px;
+  /* border: pink solid 3px; */
   width: 900px;
   margin: auto;
 }
 
-
-
-
-
-
 /* Footer Section */
 
 .footer-text {
-  font-size: 3.5em;
+  font-size: 2.5em;
   font-weight: bold;
-  font-family: sans-serif;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
   text-align: center;
   padding-top: 50px;
 
