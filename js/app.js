@@ -62,24 +62,24 @@ function memory() {
 
 //Render Random Image to DOM that satisfies conditions
 function imageGenerator() {
-  var pass = false;
-  do {
-    memory();
-    for (var i = 0; i < oldMem.length; i++) {
-      for (var j = 0; j < currentMem.length; j++) {
-        if (oldMem[i] === currentMem[j]) {
-          pass = false;
-        }
-      }
-    }
+  // var pass = false;
+  // do {
+  //   memory();
+  //   for (var i = 0; i < oldMem.length; i++) {
+  //     for (var j = 0; j < currentMem.length; j++) {
+  //       if (oldMem[i] === currentMem[j]) {
+  //         pass = false;
+  //       }
+  //     }
+  //   }
+  // } while (pass === false);
 
-  } while (pass === false);
+  // it's broken : (
 
+  memory();
   while (currentMem[0] === currentMem[1] || currentMem[0] === currentMem[2] || currentMem[1] === currentMem[2]){
     memory();
   }
-
-
 
   var pic1 = currentMem[0];
   var pic2 = currentMem[1];
