@@ -7,8 +7,10 @@ var imageThree = document.getElementById('image3');
 var sectionEl = document.getElementById('threeImages');
 var resultsEl = document.getElementById('results-items');
 
-//Click Counter
+//Click Counter & Memory
 var clickCount = 0;
+var oldMem = [null, null, null];
+var currentMem = [null, null, null];
 
 //Image Array
 var imageList = [];
@@ -51,11 +53,37 @@ function random() {
   return Math.floor(Math.random() * max);
 }
 
-//Render Random Image to DOM
+function memory() {
+  currentMem.pop();
+  currentMem.pop();
+  currentMem.pop();
+  currentMem.push(random(), random(), random());
+}
+
+//Render Random Image to DOM that satisfies conditions
 function imageGenerator() {
-  var pic1 = random();
-  var pic2 = random();
-  var pic3 = random();
+  var pass = false;
+  do {
+    memory();
+    for (var i = 0; i < oldMem.length; i++) {
+      for (var j = 0; j < currentMem.length; j++) {
+        if (oldMem[i] === currentMem[j]) {
+          pass = false;
+        }
+      }
+    }
+
+  } while (pass === false);
+
+  while (currentMem[0] === currentMem[1] || currentMem[0] === currentMem[2] || currentMem[1] === currentMem[2]){
+    memory();
+  }
+
+
+
+  var pic1 = currentMem[0];
+  var pic2 = currentMem[1];
+  var pic3 = currentMem[2];
 
   imageOne.src = imageList[pic1].src;
   imageOne.alt = imageList[pic1].alt;
@@ -71,8 +99,16 @@ function imageGenerator() {
   imageThree.alt = imageList[pic3].alt;
   imageThree.title = imageList[pic3].title;
   imageList[pic3].viewed++;
+
+  //Remomves Old Memory, Adds New Pics to Memory
+  oldMem.pop();
+  oldMem.pop();
+  oldMem.pop();
+  oldMem.push(pic1, pic2, pic3);
 }
 
+
+//Init Image Generation
 imageGenerator();
 
 //On Click - Event Handler
