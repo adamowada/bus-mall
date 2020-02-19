@@ -137,6 +137,7 @@ function handleClick(event) {
   clickCount++;
   if (clickCount === 25) {
     resultsGenerator();
+    sectionEl.removeEventListener('click', handleClick);
   }
 }
 
