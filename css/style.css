@@ -106,3 +106,14 @@ main {
   padding-top: 50px;
 
 }
+
+
+/* Canvas Area - Chart.js */
+/* canvas {
+  height: 300px;
+  width: 300px;
+} */
+
+coolChart {
+  width: 300px;
+}
