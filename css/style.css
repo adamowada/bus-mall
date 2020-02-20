@@ -41,6 +41,7 @@ main {
   display: inline-block;
   padding: 5px;
   background-color: lightgray;
+  margin-bottom: 25px;
 }
 
 .analytics-panel li {
@@ -105,4 +106,12 @@ main {
   text-align: center;
   padding-top: 50px;
 
+}
+
+/* Chart Section */
+
+#myChart {
+  display: block;
+  border: 4px blue solid;
+  margin: auto;
 }

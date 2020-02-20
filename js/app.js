@@ -12,8 +12,11 @@ var clickCount = 0;
 var currentMem = [null, null, null];
 var stagingMem = [null, null, null]; // trial random image ids go here to be tested against currentMem
 
-// Image Array
-var imageList = [];var testMem = [];
+// Utility Arrays
+var imageList = [];
+var labelArray = [];
+var clickedData = [];
+var viewedData = [];
 
 // New Image Constructor
 function NewImage(src, alt, title) {
@@ -143,7 +146,20 @@ function handleClick(event) {
 
 //Results Display after 25 Clicks
 function resultsGenerator(){
+
+  //Creates <canvas> element with attributes
+  var chartSelection = document.getElementById('chartSection');
+  var chartEl = document.createElement('canvas');
+  chartEl.setAttribute('id', 'myChart');
+  chartEl.setAttribute('width', '1100');
+  chartEl.setAttribute('height', '300');
+  chartSelection.appendChild(chartEl);
+
+  //Pulls data from attributes of imageList objects
   for (var i = 0; i < imageList.length; i++) {
+    labelArray.push(imageList[i].title); // title data for chart
+    clickedData.push(imageList[i].clicked); // clicked data for chart
+    viewedData.push(imageList[i].viewed); // viewed data for chart
     var liEl = document.createElement('li');
     var percent = 0;
     if (isNaN(Math.round((imageList[i].clicked / imageList[i].viewed) * 100))) {
@@ -154,4 +170,41 @@ function resultsGenerator(){
     liEl.textContent = `${imageList[i].title} was viewed ${imageList[i].viewed} times, clicked ${imageList[i].clicked} times, click rate was ${percent}%.`;
     resultsEl.appendChild(liEl);
   }
+
+  //Creates bar chart with created <canvas> element
+  renderChart();
+}
+
+//Chart.js
+function renderChart() {
+  var ctx = document.getElementById('myChart');
+  var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: labelArray,
+      datasets:
+      [
+        {
+          label: 'times clicked',
+          data: clickedData,
+          backgroundColor: 'blue',
+        },
+        {
+          label: 'times viewed',
+          data: viewedData,
+          backgroundColor: 'yellow',
+        }
+      ]
+    },
+    options: {
+      scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero: true
+          }
+        }]
+      }
+    }
+  });
+
 }
