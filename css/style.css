@@ -7,7 +7,6 @@ body {
 
 main {
   margin: auto;
-  /* border: green 3px solid; */
 }
 
 
@@ -54,7 +53,6 @@ main {
   font-weight: 600;
 }
 
-
 /* Images and Text Container */
 .images-text {
   display: inline-grid;
@@ -65,10 +63,6 @@ main {
   margin-left: 50px;
   padding-top: 30px;
 }
-
-
-
-
 
 /* Three images displayed on screen */
 
@@ -88,7 +82,6 @@ main {
 /* Text Under Image Section */
 .main-text {
   display: inline-block;
-  /* border: pink solid 3px; */
   width: 900px;
   margin: auto;
 }
