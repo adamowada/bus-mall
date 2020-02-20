@@ -13,7 +13,10 @@ var currentMem = [null, null, null];
 var stagingMem = [null, null, null]; // trial random image ids go here to be tested against currentMem
 
 // Image Array
-var imageList = [];var testMem = [];
+var imageList = [];
+var chartArray = []; //for chart.js
+var chartData = []; //data for chartArray
+
 
 // New Image Constructor
 function NewImage(src, alt, title) {
@@ -144,6 +147,8 @@ function handleClick(event) {
 //Results Display after 25 Clicks
 function resultsGenerator(){
   for (var i = 0; i < imageList.length; i++) {
+    chartArray.push(imageList[i].title);
+    chartData.push(imageList[i].clicked);
     var liEl = document.createElement('li');
     var percent = 0;
     if (isNaN(Math.round((imageList[i].clicked / imageList[i].viewed) * 100))) {
@@ -154,4 +159,84 @@ function resultsGenerator(){
     liEl.textContent = `${imageList[i].title} was viewed ${imageList[i].viewed} times, clicked ${imageList[i].clicked} times, click rate was ${percent}%.`;
     resultsEl.appendChild(liEl);
   }
+  renderChart();
 }
+
+//Chart.js
+function renderChart() {
+  var ctx = document.getElementById('myChart');
+  var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: chartArray,
+      datasets: [{
+        label: '# of Votes',
+        data: chartData,
+        backgroundColor: [
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(255, 159, 64, 0.2)',
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(255, 159, 64, 0.2)',
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(255, 159, 64, 0.2)',
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(255, 159, 64, 0.2)'
+        ],
+        borderColor: [
+          'rgba(255, 99, 132, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(255, 159, 64, 1)',
+          'rgba(255, 99, 132, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(255, 159, 64, 1)',
+          'rgba(255, 99, 132, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(255, 159, 64, 1)',
+          'rgba(255, 99, 132, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(255, 159, 64, 1)'
+        ],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero: true
+          }
+        }]
+      }
+    }
+  });
+}
+
+
