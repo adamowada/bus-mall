@@ -18,13 +18,18 @@ var labelArray = [];
 var clickedData = [];
 var viewedData = [];
 
+// Local storage
+//
+//
+
+
 // New Image Constructor
-function NewImage(src, alt, title) {
+function NewImage(src, alt, title, viewed=0, clicked=0) {
   this.src = src;
   this.alt = alt;
   this.title = title;
-  this.viewed = 0;
-  this.clicked = 0;
+  this.viewed = viewed;
+  this.clicked = clicked;
   imageList.push(this);
 }
 
@@ -84,7 +89,6 @@ function checkIfNew() {
 // Render Random Image to DOM that satisfies randomness conditions
 function imageGenerator() {
   // I want to generate 3 unique image ids and 3 different image ids
-
   // Memory init funciton. stages 3 random image ids
   memory();
 
@@ -146,7 +150,6 @@ function handleClick(event) {
 
 //Results Display after 25 Clicks
 function resultsGenerator(){
-
   //Creates <canvas> element with attributes
   var chartSelection = document.getElementById('chartSection');
   var chartEl = document.createElement('canvas');
@@ -173,6 +176,14 @@ function resultsGenerator(){
 
   //Creates bar chart with created <canvas> element
   renderChart();
+
+  //Checks if any savedBusMallData in local storage, and if so loads it to imageList array
+  if (localStorage.getItem('savedBusMallData') !== null) {
+    
+  }
+
+  //Saves data to local storage
+  saveToLocalStorage(imageList, 'savedBusMallData');
 }
 
 //Chart.js
@@ -206,5 +217,20 @@ function renderChart() {
       }
     }
   });
+}
 
+// saves an array to local storage and names it
+function saveToLocalStorage(arr, keyname) {
+  // stringify data
+  var stringedData = JSON.stringify(arr);
+  // saves to local storage
+  localStorage.setItem(keyname, stringedData);
+  // debug
+  console.log(localStorage);
+}
+
+function getFromLocalStorage(keyname) {
+  var stringedData = localStorage.getItem(keyname);
+  var parsedData = JSON.parse(stringedData);
+  return parsedData;
 }
