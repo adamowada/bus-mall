@@ -18,11 +18,6 @@ var labelArray = [];
 var clickedData = [];
 var viewedData = [];
 
-// Local storage
-//
-//
-
-
 // New Image Constructor
 function NewImage(src, alt, title, viewed=0, clicked=0) {
   this.src = src;
@@ -33,27 +28,36 @@ function NewImage(src, alt, title, viewed=0, clicked=0) {
   imageList.push(this);
 }
 
+//Checks if any savedBusMallData in local storage, and if so runs each image object through constructor
+if (localStorage.getItem('savedBusMallData') !== null) {
+  var loadedLocalData = getFromLocalStorage('savedBusMallData');
+  for (var j = 0; j < loadedLocalData.length; j++) {
+    new NewImage(loadedLocalData[j].src, loadedLocalData[j].alt, loadedLocalData[j].title, loadedLocalData[j].viewed, loadedLocalData[j].clicked);
+  }
+} else {
 // Create New Image Objects Here
-new NewImage('./images/bag.jpg', 'cool bag', 'bag');
-new NewImage('./images/banana.jpg', 'cool banana', 'banana');
-new NewImage('./images/bathroom.jpg', 'cool bathroom', 'bathroom');
-new NewImage('./images/boots.jpg', 'cool boots', 'boots');
-new NewImage('./images/breakfast.jpg', 'cool breakfast', 'breakfast');
-new NewImage('./images/bubblegum.jpg', 'cool bubblegum', 'bubblegum');
-new NewImage('./images/chair.jpg', 'cool chair', 'chair');
-new NewImage('./images/cthulhu.jpg', 'cool cthulhu', 'cthulhu');
-new NewImage('./images/dog-duck.jpg', 'cool dog duck', 'dog-duck');
-new NewImage('./images/dragon.jpg', 'cool dragon', 'dragon');
-new NewImage('./images/pen.jpg', 'cool pen', 'pen');
-new NewImage('./images/pet-sweep.jpg', 'cool pet sweep', 'pet-sweep');
-new NewImage('./images/scissors.jpg', 'cool scissors', 'scissors'); // don't run with scissors
-new NewImage('./images/shark.jpg', 'cool shark', 'shark');
-new NewImage('./images/sweep.png', 'cool sweep', 'sweep');
-new NewImage('./images/tauntaun.jpg', 'cool tauntaun', 'tauntaun');
-new NewImage('./images/unicorn.jpg', 'cool unicorn', 'unicorn');
-new NewImage('./images/usb.gif', 'cool usb', 'usb');
-new NewImage('./images/water-can.jpg', 'cool water can', 'water-can');
-new NewImage('./images/wine-glass.jpg', 'cool wine glass', 'wine-glass');
+  new NewImage('./images/bag.jpg', 'cool bag', 'bag');
+  new NewImage('./images/banana.jpg', 'cool banana', 'banana');
+  new NewImage('./images/bathroom.jpg', 'cool bathroom', 'bathroom');
+  new NewImage('./images/boots.jpg', 'cool boots', 'boots');
+  new NewImage('./images/breakfast.jpg', 'cool breakfast', 'breakfast');
+  new NewImage('./images/bubblegum.jpg', 'cool bubblegum', 'bubblegum');
+  new NewImage('./images/chair.jpg', 'cool chair', 'chair');
+  new NewImage('./images/cthulhu.jpg', 'cool cthulhu', 'cthulhu');
+  new NewImage('./images/dog-duck.jpg', 'cool dog duck', 'dog-duck');
+  new NewImage('./images/dragon.jpg', 'cool dragon', 'dragon');
+  new NewImage('./images/pen.jpg', 'cool pen', 'pen');
+  new NewImage('./images/pet-sweep.jpg', 'cool pet sweep', 'pet-sweep');
+  new NewImage('./images/scissors.jpg', 'cool scissors', 'scissors'); // don't run with scissors
+  new NewImage('./images/shark.jpg', 'cool shark', 'shark');
+  new NewImage('./images/sweep.png', 'cool sweep', 'sweep');
+  new NewImage('./images/tauntaun.jpg', 'cool tauntaun', 'tauntaun');
+  new NewImage('./images/unicorn.jpg', 'cool unicorn', 'unicorn');
+  new NewImage('./images/usb.gif', 'cool usb', 'usb');
+  new NewImage('./images/water-can.jpg', 'cool water can', 'water-can');
+  new NewImage('./images/wine-glass.jpg', 'cool wine glass', 'wine-glass');
+}
+
 
 // Random number generator --> returns random index of imageList
 function random() {
@@ -128,7 +132,7 @@ function imageGenerator() {
 }
 
 
-//Init Image Generation
+//Check for local storage and init Image Generation
 imageGenerator();
 
 //On Click - Event Handler
@@ -177,11 +181,6 @@ function resultsGenerator(){
   //Creates bar chart with created <canvas> element
   renderChart();
 
-  //Checks if any savedBusMallData in local storage, and if so loads it to imageList array
-  if (localStorage.getItem('savedBusMallData') !== null) {
-    
-  }
-
   //Saves data to local storage
   saveToLocalStorage(imageList, 'savedBusMallData');
 }
@@ -226,9 +225,10 @@ function saveToLocalStorage(arr, keyname) {
   // saves to local storage
   localStorage.setItem(keyname, stringedData);
   // debug
-  console.log(localStorage);
+  // console.log(localStorage);
 }
 
+// returns parsed data saved in local storage
 function getFromLocalStorage(keyname) {
   var stringedData = localStorage.getItem(keyname);
   var parsedData = JSON.parse(stringedData);
